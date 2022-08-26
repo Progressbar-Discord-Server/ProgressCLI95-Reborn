@@ -2,9 +2,9 @@ import utils
 
 
 def check_modules():
-    import os
     import os.path
-    import time
+    import subprocess
+    import sys
 
     dependencies = []
     with open(os.path.join(os.path.dirname(__file__), './dependencies.txt'),
@@ -19,13 +19,12 @@ def check_modules():
             __import__(module)
         except ImportError:
             print(f'Module `{module}` not found, installing...')
-            os.system(f'python -m pip install {module} --quiet')
+            subprocess.run([sys.executable, '-m', 'pip', 'install', module, '--quiet'])
             installed += 1
         else:
             print(f'Module `{module}` found, dependency satisfied.')
 
     print(f'Dependencies satisfied, {installed} modules installed.\nStarting the game...')
-    time.sleep(1)
     utils.clear_screen()
 
 
