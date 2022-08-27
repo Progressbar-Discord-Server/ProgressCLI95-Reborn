@@ -12,7 +12,7 @@ class GameLevel:
         self.system = system
         self.type = type
         # TODO: Chances based on how high the level is
-        self.segments_table = ('b', 'o', 'x', 'g', 'p', 'r', 'w')
+        self.segments_table = ('b', 'o', 'x2', 'x3', 'g', 'p', 'r', 'w')
         # TODO: They will affect the difficulty
         self.last_segments = []
         self.current_segment = ''
@@ -37,7 +37,7 @@ class GameLevel:
             choice = input().lower().strip()
 
             if choice.startswith(('c', 'y')):
-                self.bar.add_segments(self.current_segment)
+                self.bar.add_segment(self.current_segment)
                 invalid_choice = False
             elif choice.startswith(('s', 'n')):
                 invalid_choice = False

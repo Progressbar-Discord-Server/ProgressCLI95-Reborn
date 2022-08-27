@@ -16,21 +16,42 @@ class Progressbar:
     def is_full(self):
         return len(self.segments) >= self.width
 
-    def add_segments(self, segments: str):
-        self.segments.append(segments)
+    def add_segment(self, segment: str):
+        if segment == 'b':
+            self.segments.append('b')
+        elif segment == 'x2':
+            self.segments.append('b')
+            self.segments.append('b')
+        elif segment == 'x3':  # :P
+            self.segments.append('b')
+            self.segments.append('b')
+            self.segments.append('b')
+        elif segment == 'o':
+            self.segments.append('o')
+        elif segment == 'g':
+            return
+        elif segment == 'p' and not self.is_empty():
+            self.remove_last_segments()
+        elif segment == 'r':
+            print('you lose') # todo
+            exit()  # XD
+        elif segment == 'w':
+            self.segments = list('b' * self.width)
+        else:
+            print('whar')
 
     def remove_last_segments(self, amount: int=1):
         for i in range(amount):
             self.segments.pop()
 
     def draw(self, settings: dict) -> None:
-        bar_top, bar_bottom, bar_side, seg = '', '', '', ''
+        bar_top, bar_bottom, bar_side, seg_width = '', '', '', 0
         if (settings['ascii_mode'] == 'True'):
-            seg = '[]'
+            seg_width = 2
             bar_top = bar_bottom = f'+{"-" * self.width * 2}+'
             bar_side = '|'
         else:
-            seg = '█'
+            seg_width = 1
             bar_middle = '━' * self.width
             bar_top = f'┏{bar_middle}┓'
             bar_bottom = f'┗{bar_middle}┛'
@@ -47,7 +68,7 @@ class Progressbar:
             drawn_segments.pop()
         for segment in drawn_segments:
             if segment == ' ':
-                rprint(' ' * len(seg), end='')
+                rprint(' ' * seg_width, end='')
                 continue
             game.segments.draw_segment(segment, settings, in_bar=True)
         rprint(bar_side)

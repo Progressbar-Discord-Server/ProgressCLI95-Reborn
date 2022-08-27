@@ -1,6 +1,6 @@
 from rich import print as rprint
 
-def draw_segment(segment: str, settings: dict, system: str='95', *, in_bar: bool=False):
+def draw_segment(segment: str, settings: dict, system: str='95', *, in_bar: bool=False) -> int:
     def colored(contents: str):
         return f'[{get_segment_color(segment)}]{contents}[/{get_segment_color(segment)}]'
 
@@ -17,6 +17,9 @@ def draw_segment(segment: str, settings: dict, system: str='95', *, in_bar: bool
             seg += f'[on {get_segment_color(segment)}]{get_segment_char(segment)}[/on {get_segment_color(segment)}]'
         else:
             seg += colored('█')
+    
+    if segment in ('x2', 'x3') and not in_bar:
+        seg += ' ' + segment
 
     rprint(seg, end='')
 
@@ -27,7 +30,7 @@ def get_segment_color(segment: str, system: str='95') -> str:
         return '#00007f'
     elif segment == 'o':
         return '#f7931e'
-    elif segment == 'x':
+    elif segment == 'x2' or segment == 'x3':
         return '#29abe2'
     elif segment == 'g':
         return '#9e9e9e'
@@ -46,7 +49,7 @@ def get_segment_char(segment: str, system: str = '95') -> str:
         return ' '
     elif segment == 'o':
         return ' '
-    elif segment == 'x':
+    elif segment == 'x2' or segment == 'x3':
         return ' '
     elif segment == 'g':
         return '0'
