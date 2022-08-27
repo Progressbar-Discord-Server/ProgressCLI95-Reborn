@@ -8,7 +8,7 @@ class Progressbar:
         self.width = width
 
     def get_progress(self):
-        return len(self.segments) / self.width
+        return len(self.segments) / self.width * 100
 
     def is_empty(self):
         return len(self.segments) == 0
