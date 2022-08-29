@@ -1,5 +1,6 @@
 from importlib import invalidate_caches
 from random import choice
+import time
 from rich import print as rprint
 from game.progressbar import Progressbar
 import game.segments
@@ -21,8 +22,13 @@ class GameLevel:
         return choice(self.segments_table)
 
     def play(self, settings: dict) -> None:
+        rprint(f'[bold]Level {self.number}[/bold]')
+        rprint(f'[italic]{self.type}[/italic]')
+        time.sleep(1)
         while not self.bar.is_full():
             utils.clear_screen()
+            rprint(f'[bold]Level {self.number}[/bold]')
+            rprint(f'[italic]{self.type}[/italic]\n\n')
 
             rprint('[bold]Do you want to have this in your progressbar:[/bold]', end=' ')
             self.current_segment = self.get_next_segment()
@@ -36,8 +42,6 @@ class GameLevel:
 
             if choice.startswith(('c', 'y')):
                 self.bar.add_segment(self.current_segment)
-            else:
-                continue
         utils.clear_screen()
         rprint('[bold]You win![/bold]')
         print('Your bar:')

@@ -1,3 +1,0 @@
-id,type,default,value
-ascii_mode,bool,False,False
-colorblind,bool,False,False

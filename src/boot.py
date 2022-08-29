@@ -1,3 +1,4 @@
+from asyncore import write
 from calendar import c
 import utils
 
@@ -28,6 +29,22 @@ def check_modules() -> None:
     utils.clear_screen()
 
 
+def check_settings():
+    import os
+    import utils
+    if os.path.exists(utils.get_file_path('./settings.pbcli')):
+        return
+    with open(utils.get_file_path('./settings.pbcli'), 'w', encoding='utf8') as file:
+        import csv
+
+        writer = csv.writer(file)
+        writer.writerows([
+            ['id', 'type', 'default', 'value'],
+            ['ascii_mode','bool','False','False'],
+            ['colorblind','bool','False','False']
+        ])
+
+
 def main() -> None:
     import game.level
     import game.utils
@@ -40,4 +57,5 @@ def main() -> None:
 
 if __name__ == '__main__':
     check_modules()
+    check_settings()
     main()
