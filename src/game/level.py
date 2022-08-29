@@ -2,6 +2,7 @@ from importlib import invalidate_caches
 from random import choice
 import time
 from rich import print as rprint
+import game.bsod
 from game.progressbar import Progressbar
 import game.segments
 import utils
@@ -11,7 +12,7 @@ class GameLevel:
         self.bar = Progressbar()
         self.number = number
         self.system = system
-        self.type = type
+        self.gamemode = type
         # TODO: Chances based on how high the level is
         self.segments_table = ('b', 'o', 'x2', 'x3', 'g', 'p', 'r', 'w')
         # TODO: They will affect the difficulty
@@ -20,29 +21,37 @@ class GameLevel:
 
     def get_next_segment(self):
         return choice(self.segments_table)
+    
+    def write_level_header(self):
+        rprint(f'[italic]{self.gamemode}[/italic]')
+        rprint(f'[bold]Level {self.number}[/bold]')
 
     def play(self, settings: dict) -> None:
-        rprint(f'[bold]Level {self.number}[/bold]')
-        rprint(f'[italic]{self.type}[/italic]')
+        self.write_level_header()
         time.sleep(1)
-        while not self.bar.is_full():
+
+        bsod = False
+        while not self.bar.is_full() and not bsod:
             utils.clear_screen()
-            rprint(f'[bold]Level {self.number}[/bold]')
-            rprint(f'[italic]{self.type}[/italic]\n\n')
+            self.write_level_header()
 
             rprint('[bold]Do you want to have this in your progressbar:[/bold]', end=' ')
             self.current_segment = self.get_next_segment()
-            game.segments.draw_segment(self.current_segment, settings)
+            game.segments.draw_segment(settings, self.current_segment)
             print('\n')
-            print(f'Your bar: {int(self.bar.get_progress())}%')
+
+            print(f'Your progress bar: {int(self.bar.get_progress())}%')
             self.bar.draw(settings)
             print()
+
             rprint('[bold]C[/bold] or [bold]Y[/bold] to catch, any other key to shy away:', end=' ')
             choice = input().lower().strip()
-
             if choice.startswith(('c', 'y')):
-                self.bar.add_segment(self.current_segment)
+                bsod = self.bar.add_segment(self.current_segment)
         utils.clear_screen()
-        rprint('[bold]You win![/bold]')
-        print('Your bar:')
-        self.bar.draw(settings)
+        if not bsod:
+            rprint('[bold]You win![/bold]')
+            print('Your bar:')
+            self.bar.draw(settings)
+            return
+        game.bsod.trigger(settings)

@@ -1,6 +1,6 @@
 from rich import print as rprint
 
-def draw_segment(segment: str, settings: dict, system: str='95', *, in_bar: bool=False) -> int:
+def draw_segment(settings: dict, segment: str, system: str='95', *, in_bar: bool=False) -> int:
     def colored(contents: str):
         return f'[{get_segment_color(segment)}]{contents}[/{get_segment_color(segment)}]'
 
@@ -17,11 +17,21 @@ def draw_segment(segment: str, settings: dict, system: str='95', *, in_bar: bool
             seg += f'[on {get_segment_color(segment)}]{get_segment_char(segment)}[/on {get_segment_color(segment)}]'
         else:
             seg += colored('█')
-    
+
     if segment in ('x2', 'x3') and not in_bar:
         seg += ' ' + segment
 
     rprint(seg, end='')
+
+
+def get_segment_width(settings: dict, *, in_bar: bool=False):
+    if settings['ascii_mode'] == 'True':
+        if not in_bar and settings['colorblind'] == 'True':
+            return 3
+        else:
+            return 2
+    else:
+        return 1
 
 
 # temporary
