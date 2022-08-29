@@ -1,6 +1,7 @@
-import typing
 from rich import print as rprint
+from settings import Settings
 import game.segments
+import typing
 
 class Progressbar:
     def __init__(self, *, segments: typing.Union[str, tuple, list]='', width: int=20) -> None:
@@ -42,10 +43,10 @@ class Progressbar:
     def remove_last_segment(self) -> str:
         return self.segments.pop()
 
-    def draw(self, settings: dict) -> None:
-        seg_width = game.segments.get_segment_width(settings)
+    def draw(self) -> None:
+        seg_width = game.segments.get_segment_width()
         bar_top, bar_bottom, bar_side = '', '', ''
-        if (settings['ascii_mode'] == 'True'):
+        if (Settings().get_converted_value('ascii_mode')):
             bar_top = bar_bottom = f'+{"-" * self.width * 2}+'
             bar_side = '|'
         else:
@@ -67,6 +68,6 @@ class Progressbar:
             if segment == ' ':
                 rprint(' ' * seg_width, end='')
                 continue
-            game.segments.draw_segment(settings, segment, in_bar=True)
+            game.segments.draw_segment(segment, in_bar=True)
         rprint(bar_side)
         rprint(bar_bottom)

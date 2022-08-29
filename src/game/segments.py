@@ -1,19 +1,20 @@
 from rich import print as rprint
+from settings import Settings
 
-def draw_segment(settings: dict, segment: str, system: str='95', *, in_bar: bool=False) -> int:
+def draw_segment(segment: str, system: str='95', in_bar: bool=False) -> int:
     def colored(contents: str):
         return f'[{get_segment_color(segment)}]{contents}[/{get_segment_color(segment)}]'
 
     seg = ''
-    if settings['ascii_mode'] == 'True':
-        if not in_bar and settings['colorblind'] == 'True':
+    if Settings().get_converted_value('ascii_mode'):
+        if not in_bar and Settings().get_converted_value('colorblind'):
             seg += colored('\[')
             seg += get_segment_char(segment)
             seg += colored(']')
         else:
             seg += colored('\[]')
     else:
-        if not in_bar and settings['colorblind'] == 'True':
+        if not in_bar and Settings().get_converted_value('colorblind'):
             seg += f'[on {get_segment_color(segment)}]{get_segment_char(segment)}[/on {get_segment_color(segment)}]'
         else:
             seg += colored('█')
@@ -24,9 +25,9 @@ def draw_segment(settings: dict, segment: str, system: str='95', *, in_bar: bool
     rprint(seg, end='')
 
 
-def get_segment_width(settings: dict, *, in_bar: bool=False):
-    if settings['ascii_mode'] == 'True':
-        if not in_bar and settings['colorblind'] == 'True':
+def get_segment_width(in_bar: bool=False):
+    if Settings().get_converted_value('ascii_mode'):
+        if not in_bar and Settings().get_converted_value('colorblind'):
             return 3
         else:
             return 2

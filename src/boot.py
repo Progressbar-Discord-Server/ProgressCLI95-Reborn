@@ -45,12 +45,12 @@ def check_settings():
 
 def main() -> None:
     import game.level
-    import game.utils
 
-    settings = game.utils.load_settings()
+    import settings
+    settings.Settings()
 
     lvl = game.level.GameLevel(number=1, system='95')
-    lvl.play(settings)
+    lvl.play()
 
 
 if __name__ == '__main__':

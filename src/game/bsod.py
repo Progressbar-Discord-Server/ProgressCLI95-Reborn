@@ -1,4 +1,4 @@
-def trigger(settings: dict, system: str='95') -> None:
+def trigger(system: str='95') -> None:
     from rich import print as rprint
     rprint('[bold black on white]   GAME OVER   [/bold black on white]')
     print()
