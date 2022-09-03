@@ -1,5 +1,5 @@
 from game.progressbar import Progressbar
-from random import choice
+from random import choices
 from rich import print as rprint
 import game.bsod
 import game.segments
@@ -12,14 +12,33 @@ class GameLevel:
         self.number = number
         self.system = system
         self.gamemode = type
+
+        self.next_segment = ''
+        self.segment_weights = self.generate_segment_weights()
         # TODO: Chances based on how high the level is
         self.segments_table = ('b', 'o', 'x2', 'x3', 'g', 'p', 'r', 'w')
         # TODO: They will affect the difficulty
         self.last_segments = []
-        self.current_segment = ''
 
-    def get_next_segment(self):
-        return choice(self.segments_table)
+    def generate_segment_weights(self) -> None:
+        # Weights are relative
+        initial_weights = [
+            200,  # blue
+            200,  # orange
+            75,   # light blue (x2)
+            70,   # light blue (x3)
+            110,  # gray
+            120,  # pink
+            145,  # red
+            5,    # green
+        ]
+
+        # TODO: Tweak weights based on many factors
+
+        return initial_weights
+
+    def get_next_segment(self) -> str:
+        return choices(self.segments_table, weights=self.segment_weights, k=1)[0]
 
     def write_level_header(self):
         rprint(f'[italic]{self.gamemode}[/italic]')
@@ -35,8 +54,9 @@ class GameLevel:
             self.write_level_header()
 
             rprint('[bold]Do you want to have this in your progressbar:[/bold]', end=' ')
-            self.current_segment = self.get_next_segment()
-            game.segments.draw_segment(self.current_segment)
+            self.next_segment = self.get_next_segment()
+            self.last_segments.append(self.next_segment)
+            game.segments.draw_segment(self.next_segment)
             print('\n')
 
             print(f'Your progress bar: {int(self.bar.get_progress())}%')
@@ -46,7 +66,7 @@ class GameLevel:
             rprint('[bold]C[/bold] or [bold]Y[/bold] to catch, any other key to shy away:', end=' ')
             choice = input().lower().strip()
             if choice.startswith(('c', 'y')):
-                bsod = self.bar.add_segment(self.current_segment)
+                bsod = self.bar.add_segment(self.next_segment)
         utils.clear_screen()
         if not bsod:
             rprint('[bold]You win![/bold]')
