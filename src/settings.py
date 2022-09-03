@@ -14,22 +14,21 @@ class Settings:
 
     def __init__(self):
         if not os.path.exists(utils.get_file_path('./settings.pbcli')):
-            Settings.create_settings()
-        Settings.fetch_settings()
+            self.create_settings()
+        self.fetch_settings()
 
-    @classmethod
-    def fetch_settings(cls):
+    def fetch_settings(self):
         with open(utils.get_file_path('./settings.pbcli'), 'r', encoding='utf8') as file:
-            cls._instance.settings = dict()
+            self.settings = dict()
             settings_reader = csv.DictReader(file)
             for row in settings_reader:
-                cls._instance.settings[row['id']] = {
+                self.settings[row['id']] = {
                     'type': row['type'],
                     'default': row['default'],
                     'value': row['value'],
                 }
 
-    def create_settings(autofetch=True):
+    def create_settings(self, autofetch=True):
         with open(utils.get_file_path('./settings.pbcli'), 'w', encoding='utf8') as file:
             writer = csv.writer(file)
             writer.writerows([
@@ -38,16 +37,16 @@ class Settings:
                 ['colorblind', 'bool', 'False',   'False']
             ])
         if autofetch:
-            Settings.fetch_settings()
+            self.fetch_settings()
 
-    def fix_settings():
+    def fix_settings(self):
         utils.clear_screen()
         rprint('[bold black on white]   Uh-oh!   [/bold black on white]')
         print('Seems like your settings file is corrupted!')
         print()
         print('Press Enter to regenerate your settings file and quit the game.')
         input()
-        Settings.create_settings()
+        self.create_settings()
         exit(0)
 
     def safe_get(self, setting: str, key: str):
@@ -55,7 +54,7 @@ class Settings:
         try:
             result = self.settings[setting][key]
         except KeyError:
-            Settings.fix_settings()
+            self.fix_settings()
         return result
 
     def get_value(self, setting: str):
@@ -80,6 +79,6 @@ class Settings:
                     raise ValueError
                 return val == 'True'
             else:
-                Settings.fix_settings()
+                self.fix_settings()
         except (TypeError, ValueError):
-            Settings.fix_settings()
+            self.fix_settings()
