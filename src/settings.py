@@ -1,5 +1,3 @@
-from multiprocessing.sharedctypes import Value
-import time
 from rich import print as rprint
 import csv
 import os
