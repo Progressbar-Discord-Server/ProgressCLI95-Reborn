@@ -7,11 +7,11 @@ import time
 import utils
 
 class GameLevel:
-    def __init__(self, *, number, system, type='Regular') -> None:
+    def __init__(self, *, number, system, gamemode='Regular') -> None:
         self.bar = Progressbar()
         self.number = number
         self.system = system
-        self.gamemode = type
+        self.gamemode = gamemode
 
         self.next_segment = ''
         self.segment_weights = self.generate_segment_weights()
@@ -55,7 +55,6 @@ class GameLevel:
 
             rprint('[bold]Do you want to have this in your progressbar:[/bold]', end=' ')
             self.next_segment = self.get_next_segment()
-            self.last_segments.append(self.next_segment)
             game.segments.draw_segment(self.next_segment)
             print('\n')
 
