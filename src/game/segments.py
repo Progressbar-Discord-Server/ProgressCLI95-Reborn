@@ -69,13 +69,13 @@ def get_segment_char(segment: str, system: str = '95') -> str:
     elif segment == 'x2' or segment == 'x3':
         return ' '
     elif segment == 'g':
-        return '[white]0[/]'
+        return '[black]0[/]'
     elif segment == 'p':
-        return '[bold white]-[/]'
+        return '[bold #9e9e9e]-[/]'
     elif segment == 'r':
-        return '[bold white]![/]'
+        return '[bold #9e9e9e]![/]'
     elif segment == 'w':
-        return '[bold white]√[/]'
+        return '[bold #c1272d]√[/]'
     else:
         return '[bold white]?[/]'  # :)
 
