@@ -34,7 +34,8 @@ class Settings:
             writer.writerows([
                 ['id',         'type', 'default', 'value'],
                 ['ascii_mode', 'bool', 'False',   'False'],
-                ['colorblind', 'bool', 'False',   'False']
+                ['colorblind', 'bool', 'False',   'False'],
+                ['grayscale', 'bool', 'False',   'False']
             ])
         if autofetch:
             self.fetch_settings()
