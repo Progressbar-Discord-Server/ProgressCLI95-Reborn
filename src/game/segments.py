@@ -11,17 +11,11 @@ def draw_segment(segment: str, system: str='95', in_bar: bool=False) -> int:
             seg += colored('\[')
             seg += get_segment_char(segment)
             seg += colored(']')
-        elif not in_bar and Settings().get_converted_value('grayscale'):
-            seg += colored('\[')
-            seg += get_segment_char_gs(segment)
-            seg += colored(']')
         else:
             seg += colored('\[]')
     else:
         if not in_bar and Settings().get_converted_value('colorblind'):
             seg += f'[on {get_segment_color(segment)}]{get_segment_char(segment)}[/on {get_segment_color(segment)}]'
-        elif not in_bar and Settings().get_converted_value('grayscale'):
-            seg += f'[on {get_segment_color(segment)}]{get_segment_char_gs(segment)}[/on {get_segment_color(segment)}]'
         else:
             seg += colored('█')
 
@@ -62,24 +56,6 @@ def get_segment_color(segment: str, system: str='95') -> str:
 
 
 def get_segment_char(segment: str, system: str = '95') -> str:
-    if segment == 'b':
-        return ' '
-    elif segment == 'o':
-        return ' '
-    elif segment == 'x2' or segment == 'x3':
-        return ' '
-    elif segment == 'g':
-        return '[black]0[/]'
-    elif segment == 'p':
-        return '[bold #9e9e9e]-[/]'
-    elif segment == 'r':
-        return '[bold #9e9e9e]![/]'
-    elif segment == 'w':
-        return '[bold #c1272d]√[/]'
-    else:
-        return '[bold white]?[/]'  # :)
-
-def get_segment_char_gs(segment: str, system: str = '95') -> str:
     if segment == 'b':
         return '[bold #f7931e]B[/]'
     elif segment == 'o':
