@@ -1,3 +1,13 @@
+class DotDict(dict):
+    def __getattr__(*args):
+        val = dict.get(*args)
+        if type(val) is dict:
+            val = DotDict(val)
+        return val
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
 def clear_screen() -> None:
     import os
     import sys

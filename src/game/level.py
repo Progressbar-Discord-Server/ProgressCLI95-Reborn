@@ -1,13 +1,18 @@
+import sys
 from game.progressbar import Progressbar
 from random import choices
 from rich import print as rprint
 import game.bsod
 import game.segments
+import language
 import time
 import utils
 
+
+lang = language.Language()
+
 class GameLevel:
-    def __init__(self, *, number, system, gamemode='Regular') -> None:
+    def __init__(self, *, number, system, gamemode='regular') -> None:
         self.bar = Progressbar()
         self.number = number
         self.system = system
@@ -41,10 +46,11 @@ class GameLevel:
         return choices(self.segments_table, weights=self.segment_weights, k=1)[0]
 
     def write_level_header(self):
-        rprint(f'[italic]{self.gamemode}[/italic]')
-        rprint(f'[bold]Level {self.number}[/bold]')
+        rprint(f'[italic]{lang.gamemode[self.gamemode]}[/italic]')
+        rprint(f'[white bold]{lang.game.level_n}[/white bold]'.format(self.number))
 
     def play(self) -> None:
+        utils.clear_screen()
         self.write_level_header()
         time.sleep(1)
 
@@ -53,23 +59,24 @@ class GameLevel:
             utils.clear_screen()
             self.write_level_header()
 
-            rprint('[bold]Do you want to have this in your progressbar:[/bold]', end=' ')
+            rprint(f'[bold]{lang.game.do_you_want_to_have}[/bold]', end=' ')
             self.next_segment = self.get_next_segment()
             game.segments.draw_segment(self.next_segment)
             print('\n')
 
-            print(f'Your progress bar: {int(self.bar.get_progress())}%')
+            print(f'{lang.game.your_bar} {int(self.bar.get_progress())}%')
             self.bar.draw()
             print()
 
-            rprint('[bold]C[/bold] or [bold]Y[/bold] to catch, any other key to shy away:', end=' ')
+            rprint(f'{lang.game.press_to_catch}', end=' ')
             choice = input().lower().strip()
             if choice.startswith(('c', 'y')):
                 bsod = self.bar.add_segment(self.next_segment)
         utils.clear_screen()
         if not bsod:
-            rprint('[bold]You win![/bold]')
-            print('Your bar:')
+            rprint(f'[bold]{lang.game.win}[/bold]')
+            print(f'{lang.game.your_bar}')
             self.bar.draw()
-            return
+            sys.exit(0)
         game.bsod.trigger()
+        sys.exit(0)

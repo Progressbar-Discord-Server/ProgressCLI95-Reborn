@@ -1,7 +1,11 @@
 from rich import print as rprint
 import csv
+import language
 import os
 import utils
+
+
+lang = language.Language()
 
 class Settings:
     _instance = None
@@ -39,10 +43,10 @@ class Settings:
 
     def fix_settings(self):
         utils.clear_screen()
-        rprint('[bold black on white]   Uh-oh!   [/bold black on white]')
-        print('Seems like your settings file is corrupted!')
+        rprint(f'[bold black on white]   {lang.settings.uhoh}   [/bold black on white]')
+        print(lang.settings.corr1)
         print()
-        print('Press Enter to regenerate your settings file and quit the game.')
+        print(lang.settings.corr_regen)
         input()
         self.create_settings()
         exit(0)

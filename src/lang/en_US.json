@@ -1,0 +1,34 @@
+{
+    "__notes": "Don't touch strings and numbers in curly braces ({}), they are used for formatting",
+    "boot": {
+        "sparrow_bios": "Sparrow Assistant Enchanced Text BIOS.80.1",
+        "energystar": "Energy Star (un)Powered",
+        "version": "CLI ver. {0} - compiled {1}",
+        "dev_build": "- DEVELOPMENT BUILD // BUGS MAY BE COMMON -",
+        "enter_sys": "Choose the system: ",
+        "your_choice": "Your choice",
+        "choice_invalid": "Please enter a valid number"
+    },
+    "settings": {
+        "uhoh": "Uh-oh!",
+        "corr1": "Seems like your settings file is corrupted!",
+        "corr_regen": "Press Enter to regenerate your settings file and quit the game."
+    },
+    "game": {
+        "level_n": "Level {0}",
+        "do_you_want_to_have": "Do you want to have this in your progressbar:",
+        "your_bar": "Your progress bar:",
+        "press_to_catch": "C or Y to catch, any other key to shy away:",
+        "win": "You win!"
+    },
+    "gamemode": {
+        "regular": "Regular"
+    },
+    "bsod": {
+        "bsod_header": "GAME OVER",
+        "bsod1": "A fatal mistake has been made by the player.",
+        "bsod2": "The current game session will be terminated",
+        "bsod3": "* Press Enter to terminate the current session",
+        "bsod4": "* Don't press CTRL+ALT+DEL to restart"
+    }
+}
