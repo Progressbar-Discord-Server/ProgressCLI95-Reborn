@@ -1,4 +1,3 @@
-import sys
 import time
 import pcli_common as common
 import utils

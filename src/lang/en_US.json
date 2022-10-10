@@ -28,7 +28,8 @@
         "bsod_header": "GAME OVER",
         "bsod1": "A fatal mistake has been made by the player.",
         "bsod2": "The current game session will be terminated",
-        "bsod3": "* Press Enter to terminate the current session",
-        "bsod4": "* Don't press CTRL+ALT+DEL to restart"
+        "bsod3": "",
+        "bsod4": "* Press Enter to terminate the current session",
+        "bsod5": "* Don't press CTRL+ALT+DEL to restart"
     }
 }
