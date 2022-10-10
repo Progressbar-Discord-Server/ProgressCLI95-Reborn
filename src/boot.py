@@ -32,34 +32,20 @@ def check_modules() -> None:
 def main() -> None:
     from rich import print as rprint
 
+    import game.level
     import settings
     import language
     settings.Settings()
     lang = language.Language()
 
-    def print_bios_header():
-        rprint(f'[white not bold]{lang.boot.sparrow_bios}[/white not bold] - [bright_yellow not bold]{lang.boot.energystar}[/bright_yellow not bold]')
-        rprint(f'[white not bold]{lang.boot.version}[/white not bold]\n'.format(common.gamever, common.compile_date))
-        if common.dev:
-            rprint(f'\n[bold red]{lang.boot.dev_build}[/bold red]\n')
-
-    print_bios_header()
+    rprint(f'[white not bold]{lang.boot.sparrow_bios}[/white not bold] - [bright_yellow not bold]{lang.boot.energystar}[/bright_yellow not bold]')
+    rprint(f'[white not bold]{lang.boot.version}[/white not bold]\n'.format(common.gamever, common.compile_date))
+    if common.dev:
+        rprint(f'\n[bold red]{lang.boot.dev_build}[/bold red]\n')
     time.sleep(2)
 
-    # It's very bad, but it's temporary
-    while True:
-        utils.clear_screen()
-        print_bios_header()
-        rprint(f'[bold]{lang.boot.enter_sys}[/bold]')
-        rprint('[white not bold]1. Progressbar 95[/white not bold]')
-        choice = input(f'{lang.boot.your_choice} > ')
-        if choice != '1':
-            rprint(f'[red]{lang.boot.choice_invalid}[/red]')
-            input()
-            continue
-        import game.level
-        lvl = game.level.GameLevel(number=1, system='95')
-        lvl.play()
+    lvl = game.level.GameLevel(number=1, system='95')
+    lvl.play()
 
 
 if __name__ == '__main__':
