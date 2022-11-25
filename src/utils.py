@@ -1,3 +1,8 @@
+import os
+import pathlib
+import sys
+
+
 class DotDict(dict):
     def __getattr__(*args):
         val = dict.get(*args)
@@ -9,20 +14,61 @@ class DotDict(dict):
 
 
 def clear_screen() -> None:
-    import os
-    import sys
-
     if sys.platform.startswith(('win32')):
         os.system('cls')
     elif sys.platform.startswith(('linux', 'cygwin', 'darwin', 'freebsd')):
         os.system('clear')
 
 
+def get_appdata_directory() -> pathlib.Path:
+    home = pathlib.Path.home()
+
+    if sys.platform.startswith(('win32')):
+        return home / 'AppData' / 'Local'
+    if sys.platform.startswith(('linux')):
+        return home / '.local' / 'share'
+    if sys.platform.startswith(('darwin')):
+        return home / 'Library' / 'Application Support'
+    return None
+
+
+def get_application_directory() -> pathlib.Path:
+    appdata_dir = get_appdata_directory()
+    if appdata_dir is None:
+        return None
+    app_dir = appdata_dir / 'ProgressCLI95'
+    if app_dir.exists():
+        pass
+    else:
+        app_dir.mkdir(parents=True)
+    return app_dir
+
+
+def get_game_root() -> pathlib.Path:
+    return pathlib.Path('.')
+
+
+# it works.
 def get_file_path(filename: str) -> str:
     """Get file path relative to utils.py"""
     import os.path
 
     return os.path.join(os.path.dirname(__file__), filename)
+
+
+def xor(data: str, /, key: str = 'pcli95', *, encode = False, decode = False) -> bytes:
+    import base64
+    from itertools import cycle
+
+    if decode:
+        data = base64.b64decode(data.encode('ascii')).decode('ascii')
+
+    xored = ''.join(chr(ord(x) ^ ord(y)) for x, y in zip(data, cycle(key)))
+
+    if encode:
+        return base64.b64encode(xored.encode('ascii')).strip()
+
+    return xored.encode('ascii')
 
 
 def draw_message_screen(foreground: str, background: str, indent: list, header: str, *lines):

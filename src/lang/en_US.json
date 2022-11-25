@@ -12,7 +12,9 @@
     "settings": {
         "uhoh": "Uh-oh!",
         "corr1": "Seems like your settings file is corrupted!",
-        "corr_regen": "Press Enter to regenerate your settings file and quit the game."
+        "corr2": "",
+        "corr3": "* Press Enter to regenerate your settings file and quit the game",
+        "corr4": "* Don't press CTRL+C to restart"
     },
     "game": {
         "level_n": "Level {0}",
@@ -30,6 +32,13 @@
         "bsod2": "The current game session will be terminated",
         "bsod3": "",
         "bsod4": "* Press Enter to terminate the current session",
-        "bsod5": "* Don't press CTRL+ALT+DEL to restart"
+        "bsod5": "* Don't press CTRL+C to restart"
+    },
+    "save": {
+        "corr_header": "Uh-oh!",
+        "corr1": "Seems like your save file is corrupted!",
+        "corr2": "",
+        "corr3": "* Press Enter to backup and create a new one",
+        "corr4": "* Don't press CTRL+C to restart"
     }
 }

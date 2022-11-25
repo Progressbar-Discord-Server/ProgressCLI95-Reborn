@@ -1,9 +1,10 @@
-from rich import print as rprint
 import csv
+
+from rich import print as rprint
+
 import language
 import os
 import utils
-
 
 lang = language.Language()
 
@@ -45,8 +46,8 @@ class Settings:
         utils.clear_screen()
         rprint(f'[bold black on white]   {lang.settings.uhoh}   [/bold black on white]')
         print(lang.settings.corr1)
-        print()
-        print(lang.settings.corr_regen)
+        print(lang.settings.corr2)
+        print(lang.settings.corr3)
         input()
         self.create_settings()
         exit(0)

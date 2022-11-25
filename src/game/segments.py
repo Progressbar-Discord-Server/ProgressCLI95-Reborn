@@ -1,5 +1,7 @@
 from rich import print as rprint
+
 from settings import Settings
+
 
 def draw_segment(segment: str, system: str='95', in_bar: bool=False) -> int:
     def colored(contents: str):

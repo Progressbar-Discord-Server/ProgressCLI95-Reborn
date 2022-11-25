@@ -1,13 +1,13 @@
-import sys
-from game.progressbar import Progressbar
+import time
 from random import choices
+
 from rich import print as rprint
+
 import game.bsod
 import game.segments
 import language
-import time
 import utils
-
+from game.progressbar import Progressbar
 
 lang = language.Language()
 
@@ -77,6 +77,6 @@ class GameLevel:
             rprint(f'[bold]{lang.game.win}[/bold]')
             print(f'{lang.game.your_bar}')
             self.bar.draw()
-            sys.exit(0)
+            return False
         game.bsod.trigger()
-        sys.exit(0)
+        return True

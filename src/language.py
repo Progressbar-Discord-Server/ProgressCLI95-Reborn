@@ -1,5 +1,6 @@
 import utils
 
+
 class Language:
     _instance = None
     def __new__(cls):

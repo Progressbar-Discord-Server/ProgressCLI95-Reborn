@@ -1,7 +1,10 @@
-from rich import print as rprint
-from settings import Settings
-import game.segments
 import typing
+
+from rich import print as rprint
+
+import game.segments
+from settings import Settings
+
 
 class Progressbar:
     def __init__(self, *, segments: typing.Union[str, tuple, list]='', width: int=20) -> None:

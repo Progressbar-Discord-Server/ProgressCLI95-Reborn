@@ -1,4 +1,4 @@
-gamever = '0.01'
+gamever = '0.0100'
 dev = True
-# idc that python is interpretable language, it was like this in original
-compile_date = '09-18-2022'
+compile_date = '11-25-2022'
+save_file_format = 1

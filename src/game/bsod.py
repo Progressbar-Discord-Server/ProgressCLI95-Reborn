@@ -1,6 +1,5 @@
 def trigger(system: str='95') -> None:
     import language
-
     import utils
 
     lang = language.Language()
