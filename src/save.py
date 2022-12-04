@@ -12,6 +12,7 @@ import utils
 
 class Save:
     _instance = None
+
     def __new__(cls):
         if not isinstance(cls._instance, cls):
             cls._instance = object.__new__(cls)
@@ -33,7 +34,8 @@ class Save:
             gamever = pcli_common.gamever
             is_dev = pcli_common.dev
             fmt = pcli_common.save_file_format
-            header = struct.pack(f'>4s4s?I', sig, gamever.encode('ascii'), is_dev, fmt)
+            header = struct.pack(
+                f'>4s4s?I', sig, gamever.encode('ascii'), is_dev, fmt)
             file.write(header)
             file.write(b'AE8aRVo/PDUgRQgZMVdeUQlxQSE=')
 
@@ -44,7 +46,8 @@ class Save:
             gamever = pcli_common.gamever
             is_dev = pcli_common.dev
             fmt = pcli_common.save_file_format
-            header = struct.pack(f'>4s4s?I', sig, gamever.encode('ascii'), is_dev, fmt)
+            header = struct.pack(
+                f'>4s4s?I', sig, gamever.encode('ascii'), is_dev, fmt)
             file.write(header)
 
             with io.StringIO() as csv_data:
@@ -68,9 +71,8 @@ class Save:
             self.raw_save_data = utils.xor(data, decode=True).decode('ascii')
         except (UnicodeDecodeError, binascii.Error):
             self.corrupted_save_screen()
-        self.save_dict = list(csv.DictReader(self.raw_save_data.split('\n'), delimiter=','))
-        print(self.save_dict)
-        input()
+        self.save_dict = list(csv.DictReader(
+            self.raw_save_data.split('\n'), delimiter=','))
 
         if not self.check_integrity(sig, gamever, fmt):
             self.corrupted_save_screen()
@@ -107,14 +109,15 @@ class Save:
                 break
             lines.append(lang.save[key])
             i += 1
-        utils.draw_message_screen('white', '#00007f', [1, 1, 2, 1], header, *lines)
+        utils.draw_message_screen(
+            'white', '#00007f', [1, 1, 2, 1], header, *lines)
         input()
         utils.clear_screen()
         path = utils.get_application_directory() / '1.pcli'
-        backup_name = utils.get_application_directory() / ('1-' + ('%030x' % random.randrange(16**30)) + '.pcli.bak')
+        backup_name = utils.get_application_directory(
+        ) / ('1-' + ('%030x' % random.randrange(16**30)) + '.pcli.bak')
         path.rename(backup_name)
         old_path = utils.get_application_directory() / '1.pcli'
-        print(old_path)
         sys.exit(0)
 
     def get_value(self, parameter):

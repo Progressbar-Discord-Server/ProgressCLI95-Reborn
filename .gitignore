@@ -2,3 +2,4 @@
 .pylintrc
 *__pycache__*
 src/settings.pbcli
+.vscode/settings.json
