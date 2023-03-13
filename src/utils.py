@@ -3,6 +3,20 @@ import pathlib
 import sys
 
 
+class SemVer:
+    def __init__(self, stage: str, major: int, minor: int, patch: int):
+        self.stage = stage
+        self.major = major
+        self.minor = minor
+        self.patch = patch
+
+    def __str__(self) -> str:
+        return f'{self.stage}-{self.major}.{self.minor}.{self.patch}'
+
+    def __repr__(self):
+        return str(self)
+
+
 class DotDict(dict):
     def __getattr__(*args):
         val = dict.get(*args)
@@ -56,21 +70,6 @@ def get_file_path(filename: str) -> str:
     return os.path.join(os.path.dirname(__file__), filename)
 
 
-def xor(data: str, /, key: str = 'pcli95', *, encode = False, decode = False) -> bytes:
-    import base64
-    from itertools import cycle
-
-    if decode:
-        data = base64.b64decode(data.encode('ascii')).decode('ascii')
-
-    xored = ''.join(chr(ord(x) ^ ord(y)) for x, y in zip(data, cycle(key)))
-
-    if encode:
-        return base64.b64encode(xored.encode('ascii')).strip()
-
-    return xored.encode('ascii')
-
-
 def draw_message_screen(foreground: str, background: str, indent: list, header: str, *lines):
     from rich import print as rprint
 
@@ -88,13 +87,15 @@ def draw_message_screen(foreground: str, background: str, indent: list, header: 
     for _ in range(indent[1]):
         rprint(empty_line)
 
-    rprint(f'[bold {foreground} on {background}]' + header_indent + header + header_indent + '[/]')
+    rprint(f'[bold {foreground} on {background}]' +
+           header_indent + header + header_indent + '[/]')
     rprint(empty_line)
 
     for line in lines:
         left_indent = ' ' * indent[0]
         right_indent = ' ' * (window_width - len(line) - 1)
-        rprint(f'[{foreground} on {background}]' + left_indent + line + right_indent + '[/]')
+        rprint(f'[{foreground} on {background}]' +
+               left_indent + line + right_indent + '[/]')
 
     for _ in range(indent[3]):
         rprint(empty_line)
