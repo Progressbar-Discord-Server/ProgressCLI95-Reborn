@@ -1,0 +1,44 @@
+{
+    "__notes": "Don't touch strings and numbers in curly braces ({}), they are used for formatting",
+    "boot": {
+        "sparrow_bios": "Sparrow Assistant Enchanced Text BIOS.80.1",
+        "energystar": "Energy Star (un)Powered",
+        "version": "CLI ver. {0} - eeomuso {1}",
+        "dev_build": "- MUMO TIMEEMUS // MUMOC LETJESE -",
+        "enter_sys": "Um Timoc mutecor: ",
+        "your_choice": "Tios mutecor",
+        "choice_invalid": "Issce um si Umtit timemes esoru"
+    },
+    "settings": {
+        "uhoh": "¡Mumo!",
+        "corr1": "Tios ustel Timtrisem mir eeouio!",
+        "corr2": "",
+        "corr3": "* Ouesum tios Ustel sorol meceiue u et Comipoc moec timemes",
+        "corr4": "* Mo CTRL+C sorol rocce timemes"
+    },
+    "game": {
+        "level_n": "Pocil {0}",
+        "do_you_want_to_have": "Ti tiiue imu tios cciccetut miiuim ium:",
+        "your_bar": "Tios cciccetut:",
+        "press_to_catch": "C o Y iumees, itum Timem mimej:",
+        "win": "¡Ti siumiue!"
+    },
+    "gamemode": {
+        "regular": "Otimus"
+    },
+    "bsod": {
+        "bsod_header": "COMIPOC MORCCEO",
+        "bsod1": "Um utjeji mumo jece et Timoci soru.",
+        "bsod2": "Et Comipoc morccei.",
+        "bsod3": "",
+        "bsod4": "* Ouesum et Comipoc timemes morcce",
+        "bsod5": "* Mo CTRL+C sorol rocce timemes"
+    },
+    "save": {
+        "corr_header": "¡Mumo!",
+        "corr1": "Tios ustel Timtrisem mir eeouio!",
+        "corr2": "",
+        "corr3": "* Ouesum mloessi u ci sorol meceiue timemes",
+        "corr4": "* Mo CTRL+C sorol rocce timemes"
+    }
+}
